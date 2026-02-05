@@ -9,6 +9,8 @@ This repo serves as a central location for:
 - Best practices for working with AI coding assistants
 - Project-specific context and guidelines
 
-## Scripts
+## Trigger Phrases
 
-- [AGENTS_FETCH_PR_DIFFS.md](AGENTS_FETCH_PR_DIFFS.md) - Fetch PR diffs from GitHub repositories
+| Phrase | Documentation |
+|--------|---------------|
+| "search my PRs" | [AGENTS_FETCH_PR_DIFFS.md](AGENTS_FETCH_PR_DIFFS.md) |
