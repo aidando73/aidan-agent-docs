@@ -9,6 +9,6 @@ This repo serves as a central location for:
 - Best practices for working with AI coding assistants
 - Project-specific context and guidelines
 
-## Contents
+## Scripts
 
-*More content coming soon.*
+- [AGENTS_FETCH_PR_DIFFS.md](AGENTS_FETCH_PR_DIFFS.md) - Fetch PR diffs from GitHub repositories
