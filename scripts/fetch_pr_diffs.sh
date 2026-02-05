@@ -3,7 +3,10 @@
 # Fetch PR diffs from multiple GitHub repositories
 #
 # Usage:
-#   ./scripts/fetch_pr_diffs.sh
+#   ./scripts/fetch_pr_diffs.sh [--force]
+#
+# Options:
+#   --force    Re-download all diffs, even if they already exist
 #
 # Prerequisites:
 #   - GitHub CLI (gh) installed and authenticated
@@ -14,6 +17,12 @@
 #   - Edit GITHUB_USER to change the PR author filter
 
 set -e
+
+# Parse arguments
+FORCE=false
+if [[ "$1" == "--force" ]]; then
+    FORCE=true
+fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
@@ -42,6 +51,23 @@ for repo in "${REPOS[@]}"; do
     mkdir -p "$OUTPUT_DIR/$repo_dir"
     
     for n in $(gh pr list -R "$repo" --author "$GITHUB_USER" --state open --limit 500 --json number | jq '.[].number'); do
+        diff_file="$OUTPUT_DIR/$repo_dir/pr_$n.diff"
+        
+        # Check if we need to download
+        if [[ -f "$diff_file" && "$FORCE" == "false" ]]; then
+            # Get PR's last updated timestamp
+            pr_updated_at=$(gh pr view -R "$repo" $n --json updatedAt -q '.updatedAt' 2>/dev/null)
+            pr_updated_epoch=$(date -d "$pr_updated_at" +%s 2>/dev/null)
+            file_epoch=$(stat -c %Y "$diff_file" 2>/dev/null)
+            
+            if [[ -n "$pr_updated_epoch" && -n "$file_epoch" && "$file_epoch" -ge "$pr_updated_epoch" ]]; then
+                echo "Skipping PR #$n (up to date)"
+                continue
+            else
+                echo "PR #$n has been updated, re-downloading..."
+            fi
+        fi
+        
         echo "Fetching PR #$n from $repo..."
 
         # Get PR title
@@ -49,7 +75,6 @@ for repo in "${REPOS[@]}"; do
         pr_url="https://github.com/$repo/pull/$n"
 
         # Try fetching the diff; skip on failure
-        diff_file="$OUTPUT_DIR/$repo_dir/pr_$n.diff"
         if gh pr diff -R "$repo" $n > "$diff_file.tmp" 2>/dev/null; then
             # Prepend header with repo, PR link, and title
             {

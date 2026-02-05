@@ -11,8 +11,11 @@ Fetches PR diffs from multiple GitHub repositories and saves them locally with m
 ### Usage
 
 ```bash
-./scripts/fetch_pr_diffs.sh
+./scripts/fetch_pr_diffs.sh          # Only download new or updated PRs
+./scripts/fetch_pr_diffs.sh --force  # Re-download all diffs
 ```
+
+The script automatically checks the PR's last updated timestamp against the local file and only re-downloads if the PR has been updated.
 
 ### Prerequisites
 

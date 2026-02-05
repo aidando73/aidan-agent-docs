@@ -11,6 +11,6 @@ This repo serves as a central location for:
 
 ## Trigger Phrases
 
-| Phrase | Documentation |
-|--------|---------------|
-| "search my PRs" | [AGENTS_FETCH_PR_DIFFS.md](AGENTS_FETCH_PR_DIFFS.md) |
+| Phrase | Documentation | Description |
+|--------|---------------|-------------|
+| "search my PRs" | [AGENTS_FETCH_PR_DIFFS.md](AGENTS_FETCH_PR_DIFFS.md) | Fetch and search through open PR diffs from multiple GitHub repos |
