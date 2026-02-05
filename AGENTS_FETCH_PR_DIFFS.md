@@ -1,6 +1,10 @@
-# Scripts
+# Fetch PR Diffs
 
-## `fetch_pr_diffs.sh`
+## When to Use
+
+When the user asks to "search my PRs" or similar queries about their open pull requests, run this script to fetch the latest PR diffs, then search through the `pr_diffs/` directory.
+
+## `scripts/fetch_pr_diffs.sh`
 
 Fetches PR diffs from multiple GitHub repositories and saves them locally with metadata headers.
 
