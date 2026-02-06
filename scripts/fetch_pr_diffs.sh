@@ -70,16 +70,19 @@ for repo in "${REPOS[@]}"; do
         
         echo "Fetching PR #$n from $repo..."
 
-        # Get PR title
-        pr_title=$(gh pr view -R "$repo" $n --json title -q '.title' 2>/dev/null)
+        # Get PR title and branch
+        pr_info=$(gh pr view -R "$repo" $n --json title,headRefName 2>/dev/null)
+        pr_title=$(echo "$pr_info" | jq -r '.title')
+        pr_branch=$(echo "$pr_info" | jq -r '.headRefName')
         pr_url="https://github.com/$repo/pull/$n"
 
         # Try fetching the diff; skip on failure
         if gh pr diff -R "$repo" $n > "$diff_file.tmp" 2>/dev/null; then
-            # Prepend header with repo, PR link, and title
+            # Prepend header with repo, PR link, branch, and title
             {
                 echo "# Repository: $repo"
                 echo "# PR: $pr_url"
+                echo "# Branch: $pr_branch"
                 echo "# Title: $pr_title"
                 echo "#"
                 echo ""
@@ -106,6 +109,7 @@ When responding about code in these diffs:
 
 - **Always link to the PR** - Each diff file contains a `# PR:` header with the GitHub URL. Include this link in your responses so the user can easily navigate to the PR.
 - **Reference the repository** - Include the repository name from the `# Repository:` header for context.
+- **Reference the branch** - Include the branch name from the `# Branch:` header.
 - **Quote the PR title** - Use the `# Title:` header to provide context about what the PR is doing.
 
 Example response format:
