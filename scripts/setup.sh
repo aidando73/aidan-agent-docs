@@ -1,19 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
-# Clone agent-docs repo and install AGENTS_AIDAN.md as a Cursor rule
+# Clone agent-docs + dotfiles repos and install AGENTS_AIDAN.md as a Cursor rule
 # Run from the root of the fireworks repo
 
-# When piped to bash (e.g. gh api ... | bash), BASH_SOURCE is unset,
-# so fall back to current working directory.
-if [ -n "${BASH_SOURCE[0]+x}" ]; then
-    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    REPO_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
-else
-    REPO_ROOT="$(pwd)"
-fi
-
-cd "$REPO_ROOT"
+cd "$(pwd)"
 
 if [ -d "agent-docs" ]; then
     echo "agent-docs/ already exists, pulling latest..."
@@ -21,6 +12,14 @@ if [ -d "agent-docs" ]; then
 else
     echo "Cloning agent-docs..."
     git clone https://github.com/aidando73/agent-docs.git agent-docs
+fi
+
+if [ -d "dotfiles" ]; then
+    echo "dotfiles/ already exists, pulling latest..."
+    git -C dotfiles pull
+else
+    echo "Cloning dotfiles..."
+    gh repo clone aidando73/dotfiles dotfiles
 fi
 
 mkdir -p .cursor/rules
