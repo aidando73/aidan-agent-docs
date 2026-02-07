@@ -22,6 +22,7 @@ else
     gh repo clone aidando73/dotfiles dotfiles
 fi
 
+mkdir -p ~/.cursor/commands/
 cp agent-docs/user_commands/* ~/.cursor/commands/
 
 mkdir -p .cursor/rules
