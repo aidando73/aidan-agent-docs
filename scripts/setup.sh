@@ -4,8 +4,14 @@ set -euo pipefail
 # Clone agent-docs repo and install AGENTS_AIDAN.md as a Cursor rule
 # Run from the root of the fireworks repo
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
+# When piped to bash (e.g. gh api ... | bash), BASH_SOURCE is unset,
+# so fall back to current working directory.
+if [ -n "${BASH_SOURCE[0]+x}" ]; then
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    REPO_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
+else
+    REPO_ROOT="$(pwd)"
+fi
 
 cd "$REPO_ROOT"
 
