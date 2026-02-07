@@ -19,4 +19,5 @@ fi
 
 mkdir -p .cursor/rules
 cp agent-docs/AGENTS_AIDAN.md .cursor/rules/AGENTS_AIDAN.mdc
-echo "Copied AGENTS_AIDAN.md to .cursor/rules/AGENTS_AIDAN.mdc"
+cp agent-docs/AGENTS_AIDAN.md AGENTS.local.md
+echo "Copied AGENTS_AIDAN.md to .cursor/rules/AGENTS_AIDAN.mdc and AGENTS.local.md"
