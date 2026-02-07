@@ -12,8 +12,7 @@ disable-model-invocation: true
 cd agent-docs
 
 git status
-git add -A .
-git reset pr_diffs/
+git add AGENTS.md AGENTS_DEBUG.md AGENTS_FETCH_PR_DIFFS.md AGENTS_HALLUCINATE.md README.md scripts/ user_rules/ user_skills/
 git commit -m "Update agent-docs"
 git push
 ```
