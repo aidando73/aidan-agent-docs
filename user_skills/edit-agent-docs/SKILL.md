@@ -16,8 +16,8 @@ cd agent-docs
 
 git status
 
-# Stage changed files (only tracked directories — excludes pr_diffs/).
-git add AGENTS.md AGENTS_DEBUG.md AGENTS_FETCH_PR_DIFFS.md AGENTS_HALLUCINATE.md README.md scripts/ user_rules/ user_skills/
+# Stage everything except generated content (e.g., do not commit pr_diffs/)
+git add <all changed files except generated content>
 
 git commit -m "Update agent-docs"
 
