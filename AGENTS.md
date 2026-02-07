@@ -1,3 +1,8 @@
+---
+description: Aidan's agent instructions - trigger phrases for PR search, debug protocol, and anti-hallucination workflows
+alwaysApply: true
+---
+
 # Aidan's Agent Instructions
 
 Agent-specific documentation and workflows for Aidan. This file is copied to the repo root from `agent-docs/`.
