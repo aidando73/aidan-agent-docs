@@ -74,9 +74,12 @@ sm__inst_executed_pipe_lsu.avg.pct_of_peak_sustained_active,\
 sm__inst_executed_pipe_xu.avg.pct_of_peak_sustained_active,\
 sm__inst_executed_pipe_cbu.avg.pct_of_peak_sustained_active,\
 l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum,\
+l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum,\
 l1tex__t_sectors_pipe_lsu_mem_local_op_ld.sum,\
-l1tex__t_sectors_pipe_lsu_mem_local_op_st.sum \
-  --page raw 2>&1 | grep -E "^\s+(smsp|sm__|l1tex)"
+l1tex__t_sectors_pipe_lsu_mem_local_op_st.sum,\
+dram__bytes_read.sum,\
+dram__bytes_write.sum \
+  --page raw 2>&1 | grep -E "^\s+(smsp|sm__|l1tex|dram_)"
 ```
 
 This gives a clean output like:
@@ -111,8 +114,28 @@ This gives a clean output like:
 | cbu | `sm__inst_executed_pipe_cbu.avg.pct_of_peak_sustained_active` |
 | **Sector counts:** | |
 | Global Load Sectors | `l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum` |
+| Global Store Sectors | `l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum` |
 | Local Load Sectors | `l1tex__t_sectors_pipe_lsu_mem_local_op_ld.sum` |
 | Local Store Sectors | `l1tex__t_sectors_pipe_lsu_mem_local_op_st.sum` |
+| DRAM Bytes Read | `dram__bytes_read.sum` |
+| DRAM Bytes Write | `dram__bytes_write.sum` |
+| **Coalescing (NOT available on CC 10.0 / Blackwell):** | |
+| Load Sectors Per Request | `l1tex__average_t_sectors_per_request_pipe_lsu_mem_global_op_ld.ratio` |
+| Store Sectors Per Request | `l1tex__average_t_sectors_per_request_pipe_lsu_mem_global_op_st.ratio` |
+| L2 Read Sectors | `lts__t_sectors_op_read.sum` |
+| L2 Write Sectors | `lts__t_sectors_op_write.sum` |
+
+### CC 10.0 (Blackwell) metric availability notes
+
+Some metrics return **empty results** on CC 10.0 (Blackwell). Known unavailable metrics:
+- `l1tex__average_t_sectors_per_request_pipe_lsu_mem_global_op_ld.ratio` — sectors per load request
+- `l1tex__average_t_sectors_per_request_pipe_lsu_mem_global_op_st.ratio` — sectors per store request
+- `lts__t_sectors_op_read.sum` / `lts__t_sectors_op_write.sum` — L2 sector counts
+
+**Workaround for coalescing analysis on Blackwell:** Use the text export (`--page details`).
+The "Memory Workload Analysis Tables" section reports bytes utilized per sector per thread,
+e.g., "On average, only 2.2 of the 32 bytes transmitted per sector are utilized." Also check
+the "Source Counters" section for total excessive sectors and the NCU estimated speedup.
 
 ### Step 4: Record in progress.md
 
@@ -161,8 +184,11 @@ Always fetch these unless there's a reason not to.
 - L2 Hit Rate
 - DRAM Throughput
 - Global Load Sectors
+- Global Store Sectors
 - Local Load Sectors (if spilling)
 - Local Store Sectors (if spilling)
+- DRAM Bytes Read
+- DRAM Bytes Write
 
 **Scheduler (always):**
 - Active Warps Per Scheduler
