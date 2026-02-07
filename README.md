@@ -1,4 +1,4 @@
 ```bash
 # Setup
-git clone https://github.com/aidando73/aidan-agent-docs.git agent-docs
+gh api repos/aidando73/agent-docs/contents/setup.sh --jq '.content' | base64 -d | bash
 ```
