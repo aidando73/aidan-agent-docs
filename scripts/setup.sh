@@ -28,7 +28,7 @@ cp agent-docs/user_commands/* ~/.cursor/commands/
 
 echo "Copying user skills to ~/.cursor/skills/"
 mkdir -p ~/.cursor/skills/
-cp agent-docs/user_skills/* ~/.cursor/skills/
+cp -r agent-docs/user_skills/* ~/.cursor/skills/
 
 mkdir -p .cursor/rules
 cp agent-docs/AGENTS.md .cursor/rules/AGENTS_AIDAN.mdc
