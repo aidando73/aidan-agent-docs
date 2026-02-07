@@ -70,7 +70,7 @@ Common metric patterns to grep for:
 
 **Always record** unless Aidan explicitly says not to.
 
-Find the current in-progress section in `progress.md` and add metrics there. Use ASCII table format:
+Use ASCII table format:
 
 ```
 Metric                                      v<A>            v<B>            Change

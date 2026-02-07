@@ -1,0 +1,13 @@
+---
+description: Conventions for writing to progress.md
+globs: progress.md
+alwaysApply: false
+---
+
+# progress.md Conventions
+
+- **Reverse chronological order:** Newest content goes at the top. Older content is further down the page.
+- **Add under the current TODO:** New results, metrics, and analysis go under the in-progress task near the top of the file (typically the first item under the # Done section).
+- **ASCII tables:** Use fixed-width ASCII tables, not markdown table syntax. Right-align numbers, use commas for thousands.
+- **Always record:** When asked to fetch metrics or run a profile, record results in progress.md unless explicitly told not to.
+- **Don't update TODOs:** Never check off, reorder, or modify TODO items in progress.md. Only Aidan manages the TODO list.
