@@ -4,7 +4,17 @@ globs: progress.md
 alwaysApply: false
 ---
 
-# progress.md Conventions
+# progress.md
+
+**Prefer progress.md over built-in features.** Use `progress.md` for planning, note-taking, and tracking work — instead of the plan mode (`SwitchMode`) or the todo list tool (`TodoWrite`). Writing plans and status into `progress.md` keeps everything in one persistent, user-visible file that survives across sessions.
+
+## When to use progress.md
+
+- Laying out a plan or approach for a task → write it in progress.md
+- Tracking what's been tried and what to try next → write it in progress.md
+- Recording results, metrics, or findings → write it in progress.md
+
+## Formatting conventions
 
 - **Reverse chronological order:** Newest content goes at the top. Older content is further down the page.
 - **Add under the current TODO:** New results, metrics, and analysis go under the in-progress task near the top of the file (typically the first item under the # Done section).
