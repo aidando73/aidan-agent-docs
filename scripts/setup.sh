@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# Clone agent-docs + dotfiles repos and install AGENTS_AIDAN.md as a Cursor rule
+# Clone agent-docs + dotfiles repos and install AGENTS.md as a Cursor rule
 # Run from the root of the fireworks repo
 
 cd "$(pwd)"
@@ -27,6 +27,6 @@ mkdir -p ~/.cursor/commands/
 cp agent-docs/user_commands/* ~/.cursor/commands/
 
 mkdir -p .cursor/rules
-cp agent-docs/AGENTS_AIDAN.md .cursor/rules/AGENTS_AIDAN.mdc
-cp agent-docs/AGENTS_AIDAN.md AGENTS.local.md
-echo "Copied AGENTS_AIDAN.md to .cursor/rules/AGENTS_AIDAN.mdc and AGENTS.local.md"
+cp agent-docs/AGENTS.md .cursor/rules/AGENTS_AIDAN.mdc
+cp agent-docs/AGENTS.md AGENTS.local.md
+echo "Copied AGENTS.md to .cursor/rules/AGENTS_AIDAN.mdc and AGENTS.local.md"
