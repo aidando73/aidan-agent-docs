@@ -16,18 +16,9 @@ Guide the user through staging and committing changes.
    - Do **not** include submodule changes (directories that are git submodules).
    - The user may ask for additional files to be included after the initial add.
 
-3. **Run `git diff --cached --stat`** to confirm what will be committed.
+3. **Commit** with `git commit -m "."`
 
-4. **Commit** with a descriptive message summarizing the changes:
-
-```bash
-git commit -m "$(cat <<'EOF'
-<commit message>
-EOF
-)"
-```
-
-5. **Run `git status`** after the commit to verify success.
+4. **Run `git status`** after the commit to verify success.
 
 ## Rules
 

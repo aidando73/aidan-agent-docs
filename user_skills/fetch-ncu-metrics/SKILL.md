@@ -41,30 +41,78 @@ ncu --import do_not_commit/ncu/<PROFILE>.ncu-rep \
 
 ### Step 3: Extract metrics
 
-Use whichever `--page` mode gets what you need. When in doubt, overfetch — extra metrics are fine.
+Example: Text export grep (core metrics from `--page details`):
 
 ```bash
-# Detailed summary (most common — has duration, occupancy, throughput, stalls, etc.)
-ncu --import do_not_commit/ncu/<PROFILE>.ncu-rep --page details
-
-# Raw metrics (all counters — use when you need specific counter names)
-ncu --import do_not_commit/ncu/<PROFILE>.ncu-rep --page raw
-
-# Grep for specific metrics from raw output
-ncu --import do_not_commit/ncu/<PROFILE>.ncu-rep --page raw 2>/dev/null \
-  | grep -E "metric_name_1|metric_name_2"
+rg "Duration|Registers Per Thread|Spilling|Theoretical Occupancy|Achieved Occupancy|\
+Executed Ipc|Issue Slots Busy|SM Busy|Compute \(SM\) Throughput|Memory Throughput|\
+Executed Instructions|L1/TEX Hit Rate|L2 Hit Rate|DRAM Throughput|\
+Active Warps Per Scheduler|Eligible Warps Per Scheduler|One or More Eligible|\
+Threads Per Warp|Branch Efficiency|Block Limit|Smem Config|Dynamic Smem|Mem Pipes Busy" \
+  do_not_commit/ncu/<PROFILE>.txt
 ```
 
-Common metric patterns to grep for:
-- Occupancy: `occupancy`
-- Stalls: `stall`
-- IPC: `ipc`
-- L1/L2 throughput: `l1tex|lts__t`
-- DRAM: `dram__bytes`
-- Registers: `launch__registers_per_thread`
-- FLOPs: `flop|ffma|fadd|fmul`
-- Spills: `local_load|local_store|spill`
-- Peak sustained bandwidth: `peak_sustained`
+Example: Raw metric query (stalls, pipe utilization, sector counts):
+
+```bash
+ncu --import do_not_commit/ncu/<PROFILE>.ncu-rep \
+  --metrics \
+smsp__average_warps_issue_stalled_barrier_per_issue_active.ratio,\
+smsp__average_warps_issue_stalled_long_scoreboard_per_issue_active.ratio,\
+smsp__average_warps_issue_stalled_math_pipe_throttle_per_issue_active.ratio,\
+smsp__average_warps_issue_stalled_not_selected_per_issue_active.ratio,\
+smsp__average_warps_issue_stalled_dispatch_stall_per_issue_active.ratio,\
+smsp__average_warps_issue_stalled_wait_per_issue_active.ratio,\
+smsp__average_warps_issue_stalled_short_scoreboard_per_issue_active.ratio,\
+smsp__average_warps_issue_stalled_mio_throttle_per_issue_active.ratio,\
+smsp__average_warps_issue_stalled_lg_throttle_per_issue_active.ratio,\
+smsp__average_warps_issue_stalled_drain_per_issue_active.ratio,\
+sm__pipe_alu_cycles_active.avg.pct_of_peak_sustained_active,\
+sm__pipe_fma_cycles_active.avg.pct_of_peak_sustained_active,\
+sm__inst_executed_pipe_adu.avg.pct_of_peak_sustained_active,\
+sm__inst_executed_pipe_lsu.avg.pct_of_peak_sustained_active,\
+sm__inst_executed_pipe_xu.avg.pct_of_peak_sustained_active,\
+sm__inst_executed_pipe_cbu.avg.pct_of_peak_sustained_active,\
+l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum,\
+l1tex__t_sectors_pipe_lsu_mem_local_op_ld.sum,\
+l1tex__t_sectors_pipe_lsu_mem_local_op_st.sum \
+  --page raw 2>&1 | grep -E "^\s+(smsp|sm__|l1tex)"
+```
+
+This gives a clean output like:
+```
+  l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum                                   sector             77250080
+  sm__pipe_alu_cycles_active.avg.pct_of_peak_sustained_active                           %                47.27
+  smsp__average_warps_issue_stalled_barrier_per_issue_active.ratio                   inst                 6.59
+  ...
+```
+
+### Metric name reference
+
+| Human-readable name | NCU raw metric name |
+|---|---|
+| **Warp stalls (cycles/issued inst):** | |
+| barrier | `smsp__average_warps_issue_stalled_barrier_per_issue_active.ratio` |
+| long_scoreboard | `smsp__average_warps_issue_stalled_long_scoreboard_per_issue_active.ratio` |
+| math_pipe_throttle | `smsp__average_warps_issue_stalled_math_pipe_throttle_per_issue_active.ratio` |
+| not_selected | `smsp__average_warps_issue_stalled_not_selected_per_issue_active.ratio` |
+| dispatch_stall | `smsp__average_warps_issue_stalled_dispatch_stall_per_issue_active.ratio` |
+| wait | `smsp__average_warps_issue_stalled_wait_per_issue_active.ratio` |
+| short_scoreboard | `smsp__average_warps_issue_stalled_short_scoreboard_per_issue_active.ratio` |
+| mio_throttle | `smsp__average_warps_issue_stalled_mio_throttle_per_issue_active.ratio` |
+| lg_throttle | `smsp__average_warps_issue_stalled_lg_throttle_per_issue_active.ratio` |
+| drain | `smsp__average_warps_issue_stalled_drain_per_issue_active.ratio` |
+| **Pipe utilization (% peak active):** | |
+| alu | `sm__pipe_alu_cycles_active.avg.pct_of_peak_sustained_active` |
+| fma | `sm__pipe_fma_cycles_active.avg.pct_of_peak_sustained_active` |
+| adu | `sm__inst_executed_pipe_adu.avg.pct_of_peak_sustained_active` |
+| lsu | `sm__inst_executed_pipe_lsu.avg.pct_of_peak_sustained_active` |
+| xu | `sm__inst_executed_pipe_xu.avg.pct_of_peak_sustained_active` |
+| cbu | `sm__inst_executed_pipe_cbu.avg.pct_of_peak_sustained_active` |
+| **Sector counts:** | |
+| Global Load Sectors | `l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum` |
+| Local Load Sectors | `l1tex__t_sectors_pipe_lsu_mem_local_op_ld.sum` |
+| Local Store Sectors | `l1tex__t_sectors_pipe_lsu_mem_local_op_st.sum` |
 
 ### Step 4: Record in progress.md
 
@@ -142,3 +190,11 @@ Always fetch these unless there's a reason not to.
 - lg_throttle
 - drain
 - Total (Warp Cycles Per Issued Instruction)
+
+**Pipe utilization (always — record as a group, % peak active):**
+- alu
+- fma
+- adu
+- lsu
+- xu
+- cbu
