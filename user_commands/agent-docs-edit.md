@@ -22,3 +22,10 @@ git commit -m "Update agent-docs"
 
 git push
 ```
+
+3. After pushing, run the sync to update cursor rules and local copies:
+
+```bash
+cd "$FIREWORKS_DIR"
+source ~/.bashrc && gh api repos/aidando73/agent-docs/contents/scripts/setup.sh --jq '.content' | base64 -d | bash
+```
