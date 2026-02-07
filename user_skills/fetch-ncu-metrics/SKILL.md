@@ -29,7 +29,7 @@ Extract metrics from NCU `.ncu-rep` profiles and record results in `progress.md`
 Profiles are stored at `do_not_commit/ncu/<name>.ncu-rep` and referenced in `progress.md`.
 
 ```bash
-# List available profiles
+# List available profiles (use ls, not Cursor file tools — do_not_commit/ is gitignored)
 ls do_not_commit/ncu/*.ncu-rep
 ```
 
