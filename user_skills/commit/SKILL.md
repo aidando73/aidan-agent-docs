@@ -24,5 +24,5 @@ Guide the user through staging and committing changes.
 
 - Never use `git add .` or `git add -A` — always add files explicitly.
 - Never include submodule directories in `git add`.
-- If unsure which files to include, ask the user.
+- **Only commit modified/staged files** — do NOT ask about untracked files. If the user wants to include untracked files, they will tell you.
 - Follow the repository's existing commit message style (check `git log --oneline -5` if needed).
