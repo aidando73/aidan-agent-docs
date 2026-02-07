@@ -22,6 +22,8 @@ else
     gh repo clone aidando73/dotfiles dotfiles
 fi
 
+cp agent-docs/user_commands/* ~/.cursor/commands/
+
 mkdir -p .cursor/rules
 cp agent-docs/AGENTS_AIDAN.md .cursor/rules/AGENTS_AIDAN.mdc
 cp agent-docs/AGENTS_AIDAN.md AGENTS.local.md
