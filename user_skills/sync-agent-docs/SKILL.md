@@ -1,5 +1,7 @@
 ---
+name: sync-agent-docs
 description: Sync agent-docs repo to the fireworks repo
+disable-model-invocation: true
 ---
 
 **Important:** `agent-docs/` is a **separate git repo**. Commit from inside it.

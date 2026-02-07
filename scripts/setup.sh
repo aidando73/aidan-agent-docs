@@ -22,10 +22,6 @@ else
     gh repo clone aidando73/dotfiles dotfiles
 fi
 
-echo "Copying user commands to ~/.cursor/commands/"
-mkdir -p ~/.cursor/commands/
-cp agent-docs/user_commands/* ~/.cursor/commands/
-
 echo "Copying user skills to ~/.cursor/skills/"
 mkdir -p ~/.cursor/skills/
 cp -r agent-docs/user_skills/* ~/.cursor/skills/

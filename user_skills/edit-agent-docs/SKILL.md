@@ -1,5 +1,7 @@
 ---
+name: edit-agent-docs
 description: Make changes under agent-docs/ then commit and push
+disable-model-invocation: true
 ---
 
 **Important:** `agent-docs/` is a **separate git repo** (not part of the parent fireworks repo). All git commands must run from inside `agent-docs/`.

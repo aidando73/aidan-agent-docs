@@ -1,5 +1,7 @@
 ---
+name: start-dev-container
 description: Run the dev server automated setup script
+disable-model-invocation: true
 ---
 
 1. Check if GitHub CLI is already authenticated:

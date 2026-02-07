@@ -1,5 +1,7 @@
 ---
+name: search-prs
 description: Fetch latest PR diffs and search through them
+disable-model-invocation: true
 ---
 
 1. Read `agent-docs/AGENTS_FETCH_PR_DIFFS.md` for full instructions.
