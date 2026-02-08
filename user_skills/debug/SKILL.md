@@ -1,5 +1,5 @@
 ---
-name: debug-protocol
+name: debug
 description: Structured debug protocol for investigating hard-to-diagnose issues. Maintains a debug log to prevent re-trying failed approaches and preserve institutional knowledge. Use when the user says "debug", is investigating a bug, hang, performance regression, or any issue that isn't immediately obvious.
 ---
 
