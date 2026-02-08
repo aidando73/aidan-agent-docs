@@ -11,6 +11,8 @@ When working on a hard-to-diagnose issue, **maintain a debug log** in the projec
 
 When the user sends `/debug` again (or says "debug" again), it means: **try the next thing** from the "What to try next" list. Read `progress.md`, pick the highest-priority untried item, execute it, and document the result.
 
+If the user provides additional context with the `/debug` command (e.g., new observations, error messages, links, hypotheses), **write it down** in `progress.md` before proceeding.
+
 ## The Protocol
 
 ### 1. Document the bug
