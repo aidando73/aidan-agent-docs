@@ -14,6 +14,10 @@ If an `ncu` command fails due to a wrong flag or syntax:
 2. Update this skill file with the correction
 3. Commit and push via `/edit-agent-docs`
 
+## Related skills
+
+- [fetch-ncu-metrics](../fetch-ncu-metrics/SKILL.md) — Common metrics of interest, metric name reference, and how to record results in progress.md
+
 ## Common commands
 
 ### Profile a kernel
