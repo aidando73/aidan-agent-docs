@@ -9,11 +9,18 @@ When working on a hard-to-diagnose issue, **maintain a debug log** in the projec
 
 ## The Protocol
 
-### 1. Before you start: Check existing debug logs
+### 1. Document the bug
+
+Before diving in, write down the bug in `progress.md`:
+- **What's happening** — exact error messages, symptoms, conditions under which it occurs
+- **Command to reproduce** — the exact command or steps to trigger the bug
+- **Useful links** — logs, dashboards, related PRs, docs, stack traces
+
+### 2. Check existing debug logs
 
 Search the project's working docs (`progress.md`, `debug.md`, etc.) for keywords related to your issue. Someone may have already tried what you're about to try.
 
-### 2. Document as you go
+### 3. Document as you go
 
 For each attempt, record:
 
@@ -26,15 +33,15 @@ For each attempt, record:
 **Conclusion:** What this tells us. Why it worked/failed. What it rules out.
 ```
 
-### 3. Maintain the "What to try next" list
+### 4. Maintain the "What to try next" list
 
 After each attempt, update the "What to try next" section. Add new ideas that emerged, remove or check off things you've tried, and re-prioritize based on what you learned.
 
-### 4. Build minimal repros
+### 5. Build minimal repros
 
 Strip away as much as possible and see if the issue still reproduces. Remove unrelated code, simplify inputs, reduce problem size. If it stops reproducing, the last thing you removed is likely involved.
 
-### 5. Summarize key differences
+### 6. Summarize key differences
 
 When comparing a working case vs a broken case (e.g., a minimal repro that works vs the real code that hangs), maintain a table of **key differences**. This is often the fastest path to root cause — systematically eliminate differences until you find the one that matters.
 
