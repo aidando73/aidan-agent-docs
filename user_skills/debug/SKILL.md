@@ -7,6 +7,10 @@ description: Structured debug protocol for investigating hard-to-diagnose issues
 
 When working on a hard-to-diagnose issue, **maintain a debug log** in the project's working doc (e.g., `progress.md`, `debug.md`, or a task-specific doc). The purpose is to prevent future agents from re-trying failed approaches and to preserve institutional knowledge.
 
+## Repeated `/debug` commands
+
+When the user sends `/debug` again (or says "debug" again), it means: **try the next thing** from the "What to try next" list. Read `progress.md`, pick the highest-priority untried item, execute it, and document the result.
+
 ## The Protocol
 
 ### 1. Document the bug
