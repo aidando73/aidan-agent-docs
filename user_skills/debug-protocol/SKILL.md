@@ -30,7 +30,11 @@ For each attempt, record:
 
 After each attempt, update the "What to try next" section. Add new ideas that emerged, remove or check off things you've tried, and re-prioritize based on what you learned.
 
-### 4. Summarize key differences
+### 4. Build minimal repros
+
+Strip away as much as possible and see if the issue still reproduces. Remove unrelated code, simplify inputs, reduce problem size. If it stops reproducing, the last thing you removed is likely involved.
+
+### 5. Summarize key differences
 
 When comparing a working case vs a broken case (e.g., a minimal repro that works vs the real code that hangs), maintain a table of **key differences**. This is often the fastest path to root cause — systematically eliminate differences until you find the one that matters.
 
