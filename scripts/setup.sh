@@ -29,6 +29,5 @@ cp -r agent-docs/user_skills/* ~/.cursor/skills/
 echo "Copying user rules to ~/.cursor/rules/"
 mkdir -p ~/.cursor/rules/
 cp agent-docs/user_rules/*.mdc ~/.cursor/rules/
-cp agent-docs/AGENTS.md .cursor/rules/AGENTS_AIDAN.mdc
-cp agent-docs/AGENTS.md AGENTS.local.md
-echo "Copied AGENTS.md to .cursor/rules/AGENTS_AIDAN.mdc and AGENTS.local.md"
+# Remove stale AGENTS.md copies if they exist
+rm -f .cursor/rules/AGENTS_AIDAN.mdc AGENTS.local.md
