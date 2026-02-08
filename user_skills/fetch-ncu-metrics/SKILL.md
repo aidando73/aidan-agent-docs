@@ -48,7 +48,8 @@ rg "Duration|Registers Per Thread|Spilling|Theoretical Occupancy|Achieved Occupa
 Executed Ipc|Issue Slots Busy|SM Busy|Compute \(SM\) Throughput|Memory Throughput|\
 Executed Instructions|L1/TEX Hit Rate|L2 Hit Rate|DRAM Throughput|\
 Active Warps Per Scheduler|Eligible Warps Per Scheduler|One or More Eligible|\
-Threads Per Warp|Branch Efficiency|Block Limit|Smem Config|Dynamic Smem|Mem Pipes Busy" \
+Threads Per Warp|Branch Efficiency|Block Limit|Smem Config|Dynamic Smem|Mem Pipes Busy|\
+Warp Cycles Per Issued" \
   do_not_commit/ncu/<PROFILE>.txt
 ```
 
@@ -67,6 +68,7 @@ smsp__average_warps_issue_stalled_short_scoreboard_per_issue_active.ratio,\
 smsp__average_warps_issue_stalled_mio_throttle_per_issue_active.ratio,\
 smsp__average_warps_issue_stalled_lg_throttle_per_issue_active.ratio,\
 smsp__average_warps_issue_stalled_drain_per_issue_active.ratio,\
+smsp__average_warp_latency_per_inst_issued.ratio,\
 sm__pipe_alu_cycles_active.avg.pct_of_peak_sustained_active,\
 sm__pipe_fma_cycles_active.avg.pct_of_peak_sustained_active,\
 sm__inst_executed_pipe_adu.avg.pct_of_peak_sustained_active,\
@@ -79,7 +81,7 @@ l1tex__t_sectors_pipe_lsu_mem_local_op_ld.sum,\
 l1tex__t_sectors_pipe_lsu_mem_local_op_st.sum,\
 dram__bytes_read.sum,\
 dram__bytes_write.sum \
-  --page raw 2>&1 | grep -E "^\s+(smsp|sm__|l1tex|dram_)"
+  --page raw 2>&1 | grep -E "^\s+(smsp|sm__|l1tex|dram_)" | sort
 ```
 
 This gives a clean output like:
@@ -105,6 +107,7 @@ This gives a clean output like:
 | mio_throttle | `smsp__average_warps_issue_stalled_mio_throttle_per_issue_active.ratio` |
 | lg_throttle | `smsp__average_warps_issue_stalled_lg_throttle_per_issue_active.ratio` |
 | drain | `smsp__average_warps_issue_stalled_drain_per_issue_active.ratio` |
+| **Total (Warp Cycles Per Issued Instruction)** | `smsp__average_warp_latency_per_inst_issued.ratio` |
 | **Pipe utilization (% peak active):** | |
 | alu | `sm__pipe_alu_cycles_active.avg.pct_of_peak_sustained_active` |
 | fma | `sm__pipe_fma_cycles_active.avg.pct_of_peak_sustained_active` |
